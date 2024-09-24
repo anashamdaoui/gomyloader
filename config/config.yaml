@@ -1,0 +1,34 @@
+endpoints:
+  - path: "/register"
+    method: "POST"
+    headers:
+      Content-Type: "application/json"
+      X-API-Key: "8ff6c32e-5ac8-4a49-a248-7b7639ac7015"
+    payload:
+      - '{"id": "worker1", "port": 88080}'
+      - '{"id": "worker2", "port": 88081}'
+      - '{"id": "worker3", "port": 88082}'
+      - '{"id": "worker4", "port": 88083}'
+      - '{"id": "worker5", "port": 88084}'
+      - '{"id": "worker6", "port": 88085}'
+      - '{"id": "worker7", "port": 88086}'
+      - '{"id": "worker8", "port": 88087}'
+      - '{"id": "worker9", "port": 88088}'
+      - '{"id": "worker10", "port": 88089}'
+      - '{"id": "worker11", "port": 88090}'
+      - '{"id": "worker12", "port": 88091}'
+      - '{"id": "worker13", "port": 88092}'
+      - '{"id": "worker14", "port": 88093}'
+      - '{"id": "worker15", "port": 88094}'
+      - '{"id": "worker16", "port": 88095}'
+      - '{"id": "worker17", "port": 88096}'
+      - '{"id": "worker18", "port": 88097}'
+      - '{"id": "worker19", "port": 88098}'
+      - '{"id": "worker20", "port": 88099}'
+    load_profile: "spike"
+    base_load: 1
+    max_load: 1000
+    duration_minutes: 5
+
+
+registry_base_url: "http://129.151.245.70:3451"

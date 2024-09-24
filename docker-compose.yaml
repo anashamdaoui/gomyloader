@@ -1,0 +1,30 @@
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--log.level=debug"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+  
+  gomyloader:
+    image: gomyloader
+    container_name: gomyloader
+    ports:
+      - "2112:2112"
+    volumes:
+      - ./config/config.yaml:/app/config/config.yaml
+    depends_on:
+      - prometheus   # wait for prometheus to be started
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
