@@ -26,7 +26,8 @@ RUN go build -ldflags="-s -w" -o gomyloader ./cmd/...
 FROM alpine:3.20  
 RUN apk --no-cache add ca-certificates
 
-WORKDIR /root/
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+WORKDIR /home/appuser
 
 # Copy the binary and config file from the builder stage to the production image
 COPY --from=builder /app/gomyloader .
@@ -34,5 +35,6 @@ COPY --from=builder /app/config/config.yaml ./config/config.yaml
 
 EXPOSE 2112
 
-# Run the web service on container startup.
+# Run the web service on container startup as USER
+USER appuser
 CMD ["./gomyloader"]
