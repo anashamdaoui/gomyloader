@@ -10,15 +10,17 @@ ENV GOOS=linux
 ENV GOARCH=arm64
 ENV CGO_ENABLED=0
 
-# Copy the go.mod and go.sum to leverage Docker cache
-COPY go.* ./
+# Copy the go.mod and go.sum to leverage Docker cache. Security: avoid global pattern / recursive copy
+COPY go.mod .
+COPY go.sum .
 RUN go mod download
 
-# Copy the current directory contents into the container at /app
-COPY . .
+# Copy the current directory contents into the container at /app. Security: avoid global pattern / recursive copy
+COPY internal/ ./internal/
+COPY config/ ./config/
 
-# Build the Go app with cross-compilation settings
-RUN go build -o gomyloader ./cmd/...
+# Build the Go app with cross-compilation settings. Using -ldflags="-s -w" removes debugging information, reducing binary size.
+RUN go build -ldflags="-s -w" -o gomyloader ./cmd/...
 
 # Use a smaller base image to run the compiled binary
 FROM alpine:latest  
