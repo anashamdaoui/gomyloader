@@ -23,7 +23,7 @@ COPY config/ ./config/
 RUN go build -ldflags="-s -w" -o gomyloader ./cmd/...
 
 # Use a smaller base image to run the compiled binary
-FROM alpine:latest  
+FROM alpine:3.20  
 RUN apk --no-cache add ca-certificates
 
 WORKDIR /root/
