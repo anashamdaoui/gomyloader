@@ -24,9 +24,8 @@ RUN go build -ldflags="-s -w" -o gomyloader ./cmd/...
 
 # Use a smaller base image to run the compiled binary
 FROM alpine:3.20  
-RUN apk --no-cache add ca-certificates
-
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN apk --no-cache add ca-certificates && \
+    addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /home/appuser
 
 # Copy the binary and config file from the builder stage to the production image
